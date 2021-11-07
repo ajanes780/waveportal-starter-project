@@ -237,7 +237,9 @@ const App = () => {
       </Row>
 
       <Row className='justify-content-md-center'>
-        {allWaves.length && <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>}
+        {allWaves.length > 0 && (
+          <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>
+        )}
         <Col md={{ span: 8 }} style={{ borderRadius: '5px', padding: '16px' }}>
           {allWaves.map((wave, index) => {
             console.log(`wave`, wave)
