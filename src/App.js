@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 import { Warning } from './components/Alert'
 import { Button, Container, Row, Col, Spinner, Form } from 'react-bootstrap'
 import abi from './utils/WavePortal.json'
+import video from './video/current.mp4'
 // import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -170,7 +171,9 @@ const App = () => {
   }
 
   return (
-    <Container fluid='md' className='mt-4'>
+    // <video style={{ position: 'fixed', zIndex: '-1', width: '100%' }} className='videoTag' autoPlay loop muted>
+    //   <source src={video} type='video/mp4' />
+    <Container fluid='md' className='mt-4' style={{}}>
       <Row>
         <Col className='m-8' md={12}>
           <h1 style={{ color: 'white', textAlign: 'center' }}> ⧫ Ethereum Powered ⧫ </h1>
@@ -179,7 +182,7 @@ const App = () => {
 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className='header' style={{ textAlign: 'center' }}>
-          <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is Amazing </h4>{' '}
+          <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is amazing </h4>{' '}
           <h4>Send me a message and I might send you some Ether</h4>
           {error && <Warning error={error} />}
         </Col>
@@ -188,7 +191,13 @@ const App = () => {
       <Row>
         <Col md={{ span: 8, offset: 2 }}>
           <Form
-            style={{ border: '5px solid white', padding: '8px', margin: '16px', padding: '16px', borderRadius: '5px' }}
+            style={{
+              border: '5px solid white',
+              padding: '8px',
+              margin: '16px',
+              padding: '16px',
+              borderRadius: '5px',
+            }}
           >
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label style={{ color: 'white' }}>Enter a user name</Form.Label>
@@ -253,6 +262,7 @@ const App = () => {
         </Col>
       </Row>
     </Container>
+    // </video>
   )
 }
 
