@@ -230,7 +230,10 @@ const App = () => {
           {allWaves.map((wave, index) => {
             console.log(`wave`, wave)
             return (
-              <div key={index} style={{ backgroundColor: 'OldLace', marginTop: '16px', padding: '8px' }}>
+              <div
+                key={index}
+                style={{ backgroundColor: 'OldLace', marginTop: '16px', padding: '8px', color: 'black' }}
+              >
                 <div> Name: {wave.userName} </div>
                 <div>Address: {wave.address}</div>
                 <div>Time: {wave.timestamp.toString()}</div>
