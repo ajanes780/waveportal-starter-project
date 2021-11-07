@@ -184,7 +184,6 @@ const App = () => {
         <Col md={{ span: 8, offset: 2 }} className='header' style={{ textAlign: 'center' }}>
           <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is amazing </h4>{' '}
           <h4>Send me a message and I might send you some Ether</h4>
-          {error && <Warning error={error} />}
         </Col>
       </Row>
 
@@ -199,6 +198,7 @@ const App = () => {
               borderRadius: '5px',
             }}
           >
+            {error && <Warning error={error} />}
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label style={{ color: 'white' }}>Enter a user name</Form.Label>
               <Form.Control
@@ -237,7 +237,7 @@ const App = () => {
       </Row>
 
       <Row className='justify-content-md-center'>
-        {allWaves && <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>}
+        {allWaves.length && <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>}
         <Col md={{ span: 8 }} style={{ borderRadius: '5px', padding: '16px' }}>
           {allWaves.map((wave, index) => {
             console.log(`wave`, wave)
