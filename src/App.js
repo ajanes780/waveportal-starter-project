@@ -13,7 +13,7 @@ const App = () => {
   const [allWaves, setAllWaves] = useState([])
   const [message, setMessage] = useState({ userName: '', message: '' })
 
-  const contractAddress = '0x64FaAc685c88db0f7f8c149A64b6Ff5B2598e6Dc'
+  const contractAddress = '0x5065C4D4d74Fa1904B989Bbd82A32dE5790Ad705'
   const contractABI = abi.abi
 
   const getAllWaves = async () => {
@@ -98,8 +98,35 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    getAllWaves()
-  }, [spinner])
+    let wavePortalContract
+
+    const onNewWave = (from, timestamp, message, userName) => {
+      console.log('NewWave', from, timestamp, message, userName)
+      setAllWaves((prev) => [
+        ...prev,
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+          userName: userName,
+        },
+      ])
+    }
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+
+      wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer)
+      wavePortalContract.on('NewWave', onNewWave)
+    }
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off('NewWave', onNewWave)
+      }
+    }
+  }, [])
 
   const wave = async () => {
     try {
@@ -114,7 +141,7 @@ const App = () => {
         let count = await wavePortalContract.getTotalWaves()
         console.log('Retrieved total wave count...', count.toNumber())
 
-        const waveTxn = await wavePortalContract.wave(message.message, message.userName)
+        const waveTxn = await wavePortalContract.wave(message.message, message.userName, { gasLimit: 300000 })
         console.log('Mining...', waveTxn.hash)
         //  set loading spiner
         await waveTxn.wait()
@@ -125,9 +152,13 @@ const App = () => {
         count = await wavePortalContract.getTotalWaves()
         console.log('Retrieved total wave count...', count.toNumber())
       } else {
+        setSpinner(false)
+
         console.log("Ethereum object doesn't exist!")
       }
     } catch (error) {
+      setSpinner(false)
+      // setError(error)
       console.log(error)
     }
   }
