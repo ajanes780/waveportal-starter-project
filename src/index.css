@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+ 
   color: #fff;
-  background-color: #000;;
+  background-color: #000 !important;
 
 
+}
+.header{
+  font-size: 3rem;
+  color: #fff;
 }
 .waveButton{
   background-color: blue;
@@ -21,10 +21,10 @@ body {
   font-size: 18px;
   color: #fff !important;
 }
+ p{
+   font-size: 16px;
+   color:#fff
+ }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-https://eth-rinkeby.alchemyapi.io/v2/Mxy2Fz8yN87qvuBGccMBZfwJCKVViVNC
+/* 
+https://eth-rinkeby.alchemyapi.io/v2/Mxy2Fz8yN87qvuBGccMBZfwJCKVViVNC */
