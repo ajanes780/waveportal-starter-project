@@ -187,7 +187,9 @@ const App = () => {
 
       <Row>
         <Col md={{ span: 8, offset: 2 }}>
-          <Form>
+          <Form
+            style={{ border: '5px solid white', padding: '8px', margin: '16px', padding: '16px', borderRadius: '5px' }}
+          >
             <Form.Group className='mb-3' controlId='formBasicEmail'>
               <Form.Label style={{ color: 'white' }}>Enter a user name</Form.Label>
               <Form.Control
@@ -225,14 +227,21 @@ const App = () => {
         </Col>
       </Row>
 
-      <Row>
-        <Col md={{ span: 8, offset: 2 }}>
+      <Row className='justify-content-md-center'>
+        {allWaves && <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>}
+        <Col md={{ span: 8 }} style={{ borderRadius: '5px', padding: '16px' }}>
           {allWaves.map((wave, index) => {
             console.log(`wave`, wave)
             return (
               <div
                 key={index}
-                style={{ backgroundColor: 'OldLace', marginTop: '16px', padding: '8px', color: 'black' }}
+                style={{
+                  backgroundColor: 'OldLace',
+                  marginTop: '16px',
+                  padding: '8px',
+                  color: 'black',
+                  borderRadius: '5px',
+                }}
               >
                 <div> Name: {wave.userName} </div>
                 <div>Address: {wave.address}</div>
