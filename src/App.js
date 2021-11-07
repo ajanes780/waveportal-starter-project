@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { Warning } from './components/Alert'
-import { Button, Container, Row, Col } from 'react-bootstrap'
+import { Button, Container, Row, Col, Spinner } from 'react-bootstrap'
 import abi from './utils/WavePortal.json'
 // import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -58,6 +58,7 @@ const App = () => {
     checkIfWalletIsConnected()
   }, [])
 
+  const [spinner, setSpinner] = useState(false)
   const wave = async () => {
     try {
       const { ethereum } = window
@@ -68,6 +69,17 @@ const App = () => {
         const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer)
 
         let count = await wavePortalContract.getTotalWaves()
+        console.log('Retrieved total wave count...', count.toNumber())
+
+        const waveTxn = await wavePortalContract.wave()
+        console.log('Mining...', waveTxn.hash)
+        //  set loading spiner
+        setSpinner(true)
+        await waveTxn.wait()
+        console.log('Mined -- ', waveTxn.hash)
+        //  set loading to false
+        setSpinner(false)
+        count = await wavePortalContract.getTotalWaves()
         console.log('Retrieved total wave count...', count.toNumber())
       } else {
         console.log("Ethereum object doesn't exist!")
@@ -85,6 +97,7 @@ const App = () => {
           <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is Amazing </h4>{' '}
           <h4>Wave at me and I might send you some Ether</h4>
           {error && <Warning error={error} />}
+          {spinner && <Spinner animation='border' variant='danger' />}
           <Col>
             {!currentAccount && (
               <Button className=' btn  btn-block col-8' variant='info' onClick={connectWallet}>
