@@ -5,9 +5,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  background-color: #000;;
+
+
+}
+.waveButton{
+  background-color: blue;
+  color: #fff;
+  height: 2rem;
+  font-size: 16px;
+}
+
+.bio{
+  font-size: 18px;
+  color: #fff !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+https://eth-rinkeby.alchemyapi.io/v2/Mxy2Fz8yN87qvuBGccMBZfwJCKVViVNC
