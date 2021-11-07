@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { Warning } from './components/Alert'
-import { Button, Container, Row, Col, Spinner, Form } from 'react-bootstrap'
+import { Button, Container, Row, Col, Spinner, Form, ButtonGroup } from 'react-bootstrap'
 import abi from './utils/WavePortal.json'
 import video from './video/current.mp4'
 // import './index.css'
@@ -171,9 +171,7 @@ const App = () => {
   }
 
   return (
-    // <video style={{ position: 'fixed', zIndex: '-1', width: '100%' }} className='videoTag' autoPlay loop muted>
-    //   <source src={video} type='video/mp4' />
-    <Container fluid='md' className='mt-4' style={{}}>
+    <Container fluid='md' className='mt-4' style={{ position: 'absolute', zIndex: '2' }}>
       <Row>
         <Col className='m-8' md={12}>
           <h1 style={{ color: 'white', textAlign: 'center' }}> ⧫ Ethereum Powered Message Board ⧫ </h1>
@@ -229,8 +227,11 @@ const App = () => {
                   Connect To Wallet
                 </Button>
               )}
+
               <Button className='btn m-auto btn-block col-12' variant='info' onClick={wave}>
-                {spinner && <Spinner role='status' size='md' animation='border' />}
+                {spinner && (
+                  <Spinner style={{ marginRight: '1rem' }} as='span' role='status' size='sm' animation='border' />
+                )}
                 <span>Send me a message </span>
               </Button>
             </Col>
@@ -246,7 +247,6 @@ const App = () => {
           {allWaves
             .sort((a, b) => b.timestamp - a.timestamp)
             .map((wave, index) => {
-              console.log(`wave`, wave)
               return (
                 <div
                   key={index}
@@ -268,7 +268,6 @@ const App = () => {
         </Col>
       </Row>
     </Container>
-    // </video>
   )
 }
 
