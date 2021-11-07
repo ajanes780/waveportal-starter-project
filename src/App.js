@@ -11,9 +11,9 @@ const App = () => {
   const [error, setError] = useState('')
   const [spinner, setSpinner] = useState(false)
   const [allWaves, setAllWaves] = useState([])
-  const [message, setMessage] = useState({ username: '', message: '' })
+  const [message, setMessage] = useState({ userName: '', message: '' })
 
-  const contractAddress = '0xB00eA5AE36e261ae313f97FFFa2459A79238e6e0'
+  const contractAddress = '0x64FaAc685c88db0f7f8c149A64b6Ff5B2598e6Dc'
   const contractABI = abi.abi
 
   const getAllWaves = async () => {
@@ -35,7 +35,7 @@ const App = () => {
             address: wave.waver,
             timestamp: new Date(wave.timestamp * 1000),
             message: wave.message,
-            username: wave.username,
+            userName: wave.userName,
           })
         })
 
@@ -97,6 +97,10 @@ const App = () => {
     checkIfWalletIsConnected()
   }, [])
 
+  useEffect(() => {
+    getAllWaves()
+  }, [spinner])
+
   const wave = async () => {
     try {
       const { ethereum } = window
@@ -110,7 +114,7 @@ const App = () => {
         let count = await wavePortalContract.getTotalWaves()
         console.log('Retrieved total wave count...', count.toNumber())
 
-        const waveTxn = await wavePortalContract.wave(message.message, message.username)
+        const waveTxn = await wavePortalContract.wave(message.message, message.userName)
         console.log('Mining...', waveTxn.hash)
         //  set loading spiner
         await waveTxn.wait()
@@ -145,7 +149,7 @@ const App = () => {
       <Row>
         <Col md={{ span: 8, offset: 2 }} className='header' style={{ textAlign: 'center' }}>
           <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is Amazing </h4>{' '}
-          <h4>Wave at me and I might send you some Ether</h4>
+          <h4>Send me a message and I might send you some Ether</h4>
           {error && <Warning error={error} />}
         </Col>
       </Row>
@@ -158,8 +162,8 @@ const App = () => {
               <Form.Control
                 type='text'
                 placeholder='User name'
-                value={message.username}
-                name='username'
+                value={message.userName}
+                name='userName'
                 onChange={handleChange}
               />
             </Form.Group>
@@ -177,11 +181,11 @@ const App = () => {
             </Form.Group>
             <Col>
               {!currentAccount && (
-                <Button className=' btn  btn-block col-12' variant='info' onClick={connectWallet}>
+                <Button className=' btn mb-2 btn-block col-12' variant='info' onClick={connectWallet}>
                   Connect To Wallet
                 </Button>
               )}
-              <Button className='btn btn-block col-12' variant='info' onClick={wave}>
+              <Button className='btn m-auto btn-block col-12' variant='info' onClick={wave}>
                 {spinner && <Spinner role='status' size='md' animation='border' />}
                 <span>Send me a message </span>
               </Button>
@@ -193,9 +197,10 @@ const App = () => {
       <Row>
         <Col md={{ span: 8, offset: 2 }}>
           {allWaves.map((wave, index) => {
+            console.log(`wave`, wave)
             return (
               <div key={index} style={{ backgroundColor: 'OldLace', marginTop: '16px', padding: '8px' }}>
-                <div> Name: {wave.username} </div>
+                <div> Name: {wave.userName} </div>
                 <div>Address: {wave.address}</div>
                 <div>Time: {wave.timestamp.toString()}</div>
                 <div>Message: {wave.message}</div>
