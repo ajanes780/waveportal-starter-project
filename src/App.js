@@ -183,9 +183,8 @@ const App = () => {
       <Row>
         <Col md={{ span: 8, offset: 2 }} className='header' style={{ textAlign: 'center' }}>
           <h2> 👋 Hey there! </h2> <h4>I'm Aaron and I built this message board using React + Solidity. </h4>{' '}
-          <h4>
-            messages are processed using the Ethereum Blockchain. Set Message and I might send you some Ether back
-          </h4>
+          <h4>Messages are processed using the Ethereum Blockchain.</h4>{' '}
+          <h4>Send me a message and I might send you some Ether back.</h4>
           <h6 style={{ color: 'yellow' }}> (Currently testing on Rinkeby Test Network )</h6>
         </Col>
       </Row>
