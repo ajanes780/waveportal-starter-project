@@ -176,14 +176,17 @@ const App = () => {
     <Container fluid='md' className='mt-4' style={{}}>
       <Row>
         <Col className='m-8' md={12}>
-          <h1 style={{ color: 'white', textAlign: 'center' }}> ⧫ Ethereum Powered ⧫ </h1>
+          <h1 style={{ color: 'white', textAlign: 'center' }}> ⧫ Ethereum Powered Message Board ⧫ </h1>
         </Col>
       </Row>
 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className='header' style={{ textAlign: 'center' }}>
-          <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is amazing </h4>{' '}
-          <h4>Send me a message and I might send you some Ether</h4>
+          <h2> 👋 Hey there! </h2> <h4>I'm Aaron and I built this message board using React + Solidity. </h4>{' '}
+          <h4>
+            messages are processed using the Ethereum Blockchain. Set Message and I might send you some Ether back
+          </h4>
+          <h6 style={{ color: 'yellow' }}> (Currently testing on Rinkeby Test Network )</h6>
         </Col>
       </Row>
 
