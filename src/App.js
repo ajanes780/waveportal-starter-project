@@ -241,26 +241,28 @@ const App = () => {
           <h2 style={{ color: 'white', textAlign: 'Center', margin: '16px' }}> Previous Messages</h2>
         )}
         <Col md={{ span: 8 }} style={{ borderRadius: '5px', padding: '16px' }}>
-          {allWaves.map((wave, index) => {
-            console.log(`wave`, wave)
-            return (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: 'OldLace',
-                  marginTop: '16px',
-                  padding: '8px',
-                  color: 'black',
-                  borderRadius: '5px',
-                }}
-              >
-                <div> Name: {wave.userName} </div>
-                <div>Address: {wave.address}</div>
-                <div>Time: {wave.timestamp.toString()}</div>
-                <div>Message: {wave.message}</div>
-              </div>
-            )
-          })}
+          {allWaves
+            .sort((a, b) => b.timestamp - a.timestamp)
+            .map((wave, index) => {
+              console.log(`wave`, wave)
+              return (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor: 'OldLace',
+                    marginTop: '16px',
+                    padding: '8px',
+                    color: 'black',
+                    borderRadius: '5px',
+                  }}
+                >
+                  <div> Name: {wave.userName} </div>
+                  <div>Address: {wave.address}</div>
+                  <div>Time: {wave.timestamp.toString()}</div>
+                  <div>Message: {wave.message}</div>
+                </div>
+              )
+            })}
         </Col>
       </Row>
     </Container>
