@@ -26,5 +26,9 @@ body {
    color:#fff
  }
 
+ Button{
+   color: #fff !important;
+   font-size: 18px;
+ }
 /* 
 https://eth-rinkeby.alchemyapi.io/v2/Mxy2Fz8yN87qvuBGccMBZfwJCKVViVNC */

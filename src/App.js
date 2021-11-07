@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { Warning } from './components/Alert'
 import { Button, Container, Row, Col } from 'react-bootstrap'
+import abi from './utils/WavePortal.json'
 // import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('')
   const [error, setError] = useState('')
-  console.log(`error`, error)
+  const contractAddress = '0xd62aAC594D3f29E82b479Cd77707964a310E044d'
+  const contractABI = abi.abi
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window
@@ -41,9 +43,14 @@ const App = () => {
       const { ethereum } = window
       if (!ethereum) {
         setError('Get Meta Mask to use this site ')
-        // alert('Get Meta Mask')
       }
-    } catch (error) {}
+
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+
+      console.log('Connected', accounts[0])
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -51,7 +58,24 @@ const App = () => {
     checkIfWalletIsConnected()
   }, [])
 
-  const wave = () => {}
+  const wave = async () => {
+    try {
+      const { ethereum } = window
+
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer)
+
+        let count = await wavePortalContract.getTotalWaves()
+        console.log('Retrieved total wave count...', count.toNumber())
+      } else {
+        console.log("Ethereum object doesn't exist!")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Container fluid className='m-2'>
@@ -61,9 +85,16 @@ const App = () => {
           <h2> 👋 Hey there! </h2> <h4>Im Aaron and React + Solidity is Amazing </h4>{' '}
           <h4>Wave at me and I might send you some Ether</h4>
           {error && <Warning error={error} />}
-          <Button className='btn m-2btn-block col-8 ' variant='info' onClick={wave}>
-            Wave at Me
-          </Button>
+          <Col>
+            {!currentAccount && (
+              <Button className=' btn  btn-block col-8' variant='info' onClick={connectWallet}>
+                Connect To Wallet
+              </Button>
+            )}
+            <Button className='btn btn-block col-8 ' variant='info' onClick={wave}>
+              Wave at Me
+            </Button>
+          </Col>
         </Col>
         <Col md={2}> </Col>
       </Row>
