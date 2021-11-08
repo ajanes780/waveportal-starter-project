@@ -43,7 +43,6 @@ const App = () => {
         setAllWaves(wavesCleaned)
       } else {
         setError("Ethereum object doesn't exist!")
-        // console.log("Ethereum object doesn't exist!")
       }
     } catch (error) {
       console.log(error)
@@ -54,7 +53,7 @@ const App = () => {
     try {
       const { ethereum } = window
       if (!ethereum) {
-        console.log('Make sure you have metamask')
+        setError('Make sure you have metamask')
         return
       } else {
         console.log('We have the ethereum object ', ethereum)
@@ -102,7 +101,6 @@ const App = () => {
     let wavePortalContract
 
     const onNewWave = (from, timestamp, message, userName) => {
-      console.log('NewWave', from, timestamp, message, userName)
       setAllWaves((prev) => [
         ...prev,
         {
@@ -159,7 +157,7 @@ const App = () => {
       }
     } catch (error) {
       setSpinner(false)
-      // setError(error)
+
       console.log(error)
     }
   }
@@ -167,7 +165,6 @@ const App = () => {
   const handleChange = (e) => {
     const { name, value } = e.target
     setMessage((prev) => ({ ...prev, [name]: value }))
-    console.log(`message`, message)
   }
 
   return (
